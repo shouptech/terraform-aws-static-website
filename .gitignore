@@ -28,5 +28,6 @@ terraform.rc
 *.tfvars
 !example.tfvars
 
-# Ignore backend configuration files
-backend.conf
+# Ignore backend configuration except for the examples.
+*.tfbackend
+!example.s3.tfbackend

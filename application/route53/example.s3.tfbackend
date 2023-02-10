@@ -1,0 +1,8 @@
+# This is an example configuration for your Terraform backend.
+# Copy this file and use your own values here.
+# Provide this to terraform init.
+# Example: terraform init -backend-config=./production.s3.tfbackend
+bucket = "my-s3-state-bucket"
+key = "application/route53"
+region = "us-east-1"
+dynamodb_table = "my-tf-lock"
