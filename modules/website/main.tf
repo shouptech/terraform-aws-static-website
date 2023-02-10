@@ -78,7 +78,18 @@ resource "aws_s3_bucket_public_access_block" "access_logs" {
   restrict_public_buckets = true
 }
 
+resource "aws_s3_object" "example_index" {
+  count = var.copy_example_index ? 1 : 0
 
+  lifecycle {
+    # Ignore changes to this resource as it's only an example file.
+    ignore_changes = all
+  }
+
+  key    = "index.html"
+  bucket = aws_s3_bucket.website.id
+  source = "${path.module}/external/index.html"
+}
 
 ################################################################################
 # Create CloudFront Distribution and Route53 Records

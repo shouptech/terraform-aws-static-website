@@ -19,6 +19,12 @@ variable "force_destroy" {
   default     = true
 }
 
+variable "copy_example_index" {
+  description = "Wether or not to copy the example index.html file."
+  type        = bool
+  default     = true
+}
+
 ################################################################################
 # Route53 Variables
 ################################################################################
