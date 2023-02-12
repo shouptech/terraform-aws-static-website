@@ -1,6 +1,7 @@
 # Route53 Zone
 
-A module to create a new route 53 zone
+A module to create a new route 53 zone. This module is not to be applied directly. See the examples in the
+`application` folder.
 
 ## Variables
 

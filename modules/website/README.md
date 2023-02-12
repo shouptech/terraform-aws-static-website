@@ -1,6 +1,7 @@
 # Website
 
-A module to create a static website hosted on S3 and served via Cloudfront.
+A module to create a static website hosted on S3 and served via Cloudfront. This module is not to be applied directly.
+See the examples in the `application` folder.
 
 ## Variables
 

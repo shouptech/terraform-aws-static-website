@@ -5,22 +5,22 @@ output "acm_certificate_arn" {
 
 output "website_bucket_id" {
   description = "ID of S3 Bucket for website"
-  value       = aws_s3_bucket.website.id
+  value       = module.website_bucket.id
 }
 
 output "website_bucket_arn" {
   description = "ARN of S3 Bucket for website"
-  value       = aws_s3_bucket.website.arn
+  value       = module.website_bucket.arn
 }
 
 output "logging_bucket_id" {
   description = "ID of S3 Bucket for cloudfront logs"
-  value       = aws_s3_bucket.access_logs.id
+  value       = module.logging_bucket.id
 }
 
 output "logging_bucket_arn" {
   description = "ARN of S3 Bucket for cloudfront logs"
-  value       = aws_s3_bucket.access_logs.arn
+  value       = module.logging_bucket.arn
 }
 
 output "cloudfront_distribution_id" {

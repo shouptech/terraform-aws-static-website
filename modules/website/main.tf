@@ -48,34 +48,18 @@ locals {
   log_bucket_name = var.access_logs_bucket_name != null ? var.access_logs_bucket_name : "${var.bucket_name}-access-logs"
 }
 
-resource "aws_s3_bucket" "website" {
-  bucket        = var.bucket_name
+module "website_bucket" {
+  source = "../s3-bucket"
+
+  bucket_name   = var.bucket_name
   force_destroy = var.force_destroy
 }
 
-# Lock down this bucket. Since we're using Cloudfront, there's no need for any
-# public access to this bucket.
-resource "aws_s3_bucket_public_access_block" "website" {
-  bucket = aws_s3_bucket.website.id
+module "logging_bucket" {
+  source = "../s3-bucket"
 
-  block_public_acls       = true
-  block_public_policy     = true
-  ignore_public_acls      = true
-  restrict_public_buckets = true
-}
-
-resource "aws_s3_bucket" "access_logs" {
-  bucket        = local.log_bucket_name
+  bucket_name   = local.log_bucket_name
   force_destroy = var.force_destroy
-}
-
-resource "aws_s3_bucket_public_access_block" "access_logs" {
-  bucket = aws_s3_bucket.access_logs.id
-
-  block_public_acls       = true
-  block_public_policy     = true
-  ignore_public_acls      = true
-  restrict_public_buckets = true
 }
 
 resource "aws_s3_object" "example_index" {
@@ -87,7 +71,7 @@ resource "aws_s3_object" "example_index" {
   }
 
   key    = "index.html"
-  bucket = aws_s3_bucket.website.id
+  bucket = module.website_bucket.id
   source = "${path.module}/external/index.html"
 }
 
@@ -104,7 +88,7 @@ resource "aws_cloudfront_origin_access_identity" "website" {}
 data "aws_iam_policy_document" "website" {
   statement {
     actions   = ["s3:GetObject"]
-    resources = ["${aws_s3_bucket.website.arn}/*"]
+    resources = ["${module.website_bucket.arn}/*"]
 
     principals {
       type        = "AWS"
@@ -114,7 +98,7 @@ data "aws_iam_policy_document" "website" {
 }
 
 resource "aws_s3_bucket_policy" "website" {
-  bucket = aws_s3_bucket.website.id
+  bucket = module.website_bucket.id
   policy = data.aws_iam_policy_document.website.json
 }
 
@@ -130,7 +114,7 @@ resource "aws_cloudfront_distribution" "website" {
 
   logging_config {
     include_cookies = var.logging_include_cookies
-    bucket          = aws_s3_bucket.access_logs.bucket_regional_domain_name
+    bucket          = module.logging_bucket.bucket_regional_domain_name
     prefix          = var.site_fqdn
   }
 
@@ -158,7 +142,7 @@ resource "aws_cloudfront_distribution" "website" {
   }
 
   origin {
-    domain_name = aws_s3_bucket.website.bucket_regional_domain_name
+    domain_name = module.website_bucket.bucket_regional_domain_name
     origin_id   = local.s3_origin_id
 
     s3_origin_config {

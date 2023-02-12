@@ -4,10 +4,11 @@ An example module for building a static website using the modules contained in t
 
 This must be created _after_ the route53 zone is created. Furthermore, you must use the same zone_name as created in the Route53 zone module.
 
-## Pre-requisites
+## Requirements
 
-1. Terraform v1.3.8 installed. Optionally, use a tool like tfenv to manage the version of Terraform used.
-2. AWS CLI configured with an access key pair that has administrator privileges.
+* Terraform v1.3.8 installed. Optionally, use a tool like tfenv to manage the version of Terraform used.
+* AWS CLI configured with an access key pair that has administrator privileges.
+* An S3 bucket to store the terraform state.
 
 ## Usage
 
