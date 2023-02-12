@@ -17,4 +17,11 @@ provider "aws" {
   # Furthermore, some resources, such as ACM certificates, must be created in us-east-1
   # in order to interact with Cloudfront.
   region = "us-east-1"
+
+  default_tags {
+    tags = {
+      Provisioner = "Terraform"
+      Environment = var.environment
+    }
+  }
 }

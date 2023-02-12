@@ -17,3 +17,8 @@ variable "alarm_emails" {
   description = "List of emails that alarm notifications should be sent to."
   type        = list(string)
 }
+
+variable "environment" {
+  description = "Value of Environment tag for resources."
+  type        = string
+}

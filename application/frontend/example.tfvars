@@ -4,3 +4,4 @@ zone_name        = "website.example.com"
 site_fqdn        = "app.website.example.com"
 alarm_topic_name = "production_frontend_alarms"
 alarm_emails     = ["ops@example.com"]
+environment      = "production"
