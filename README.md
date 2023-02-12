@@ -12,6 +12,7 @@ This project contains example code for building a static website using Cloudfron
 └── modules
     ├── route53-zone # A module to create a route 53 hosted zone
     ├── s3-bucket # A module for creating S3 buckets
+    ├── wafv2_acl # A module for creating a WAFv2 ACL.
     └── website # A module to create a static website
 ```
 
@@ -37,6 +38,10 @@ To apply each module:
 3. Run `terraform init -backend-config=./my.s3.backend` where `my.s3.tfbackend` is the file created in step 2.
 4. Run `terraform apply` and watch your resources get created.
 
+## Modules
+
+For more details about what each module implements, please see the `README.md` file contained within the module.
+
 ## Potential Improvements
 
 * Use a terraform wrapper, such as [Terragrunt](https://terragrunt.gruntwork.io/) to assist with module dependencies,
@@ -46,3 +51,5 @@ To apply each module:
 * The route53 could be updated to create the NS records as well. This greatly depends on what is currently hosting DNS
    for the zone. For example, if the domain is on Cloudflare, the Cloudflare provider could be used to create the
    appropriate NS records.
+* The WAF module could be updated to provide more configuration. Currently, it only implements a basic WAF ACL using the
+   AWSManagedRulesCommonRuleSet rule set, and is not configurable.
