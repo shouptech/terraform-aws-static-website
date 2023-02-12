@@ -70,9 +70,10 @@ resource "aws_s3_object" "example_index" {
     ignore_changes = all
   }
 
-  key    = "index.html"
-  bucket = module.website_bucket.id
-  source = "${path.module}/external/index.html"
+  key          = "index.html"
+  content_type = "text/html"
+  bucket       = module.website_bucket.id
+  source       = "${path.module}/external/index.html"
 }
 
 ################################################################################
@@ -111,6 +112,8 @@ resource "aws_cloudfront_distribution" "website" {
   enabled             = true
   is_ipv6_enabled     = var.is_ipv6_enabled
   default_root_object = var.default_root_object
+
+  web_acl_id = var.web_acl_id
 
   logging_config {
     include_cookies = var.logging_include_cookies

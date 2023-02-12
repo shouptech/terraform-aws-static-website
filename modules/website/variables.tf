@@ -14,13 +14,13 @@ variable "access_logs_bucket_name" {
 }
 
 variable "force_destroy" {
-  description = "Wether or not to delete all objects in created S3 buckets. This should be false if these resources should be protected."
+  description = "whether or not to delete all objects in created S3 buckets. This should be false if these resources should be protected."
   type        = bool
   default     = true
 }
 
 variable "copy_example_index" {
-  description = "Wether or not to copy the example index.html file."
+  description = "whether or not to copy the example index.html file."
   type        = bool
   default     = true
 }
@@ -50,7 +50,7 @@ variable "default_root_object" {
 }
 
 variable "is_ipv6_enabled" {
-  description = "Wether or not IPv6 should be enabled."
+  description = "whether or not IPv6 should be enabled."
   type        = bool
   default     = true
 }
@@ -101,6 +101,12 @@ variable "cache_max_ttl" {
   description = "Maximum TTL for objects in cache."
   type        = number
   default     = 86400
+}
+
+variable "web_acl_id" {
+  description = "ID of WAF ACL to apply."
+  type        = string
+  default     = null
 }
 
 ################################################################################

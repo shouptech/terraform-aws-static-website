@@ -1,3 +1,11 @@
+module "waf_acl" {
+  source = "../../modules/wafv2_acl"
+
+  name                            = var.acl_name
+  scope                           = "CLOUDFRONT"
+  cloudwatch_metrics_rules_prefix = var.acl_name
+}
+
 module "website" {
   source = "../../modules/website"
 
@@ -9,4 +17,6 @@ module "website" {
 
   alarm_topic_name = var.alarm_topic_name
   alarm_emails     = var.alarm_emails
+
+  web_acl_id = module.waf_acl.arn
 }

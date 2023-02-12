@@ -17,3 +17,18 @@ output "website_bucket_id" {
   description = "ID of S3 Bucket for the website"
   value       = module.website.website_bucket_id
 }
+
+output "acl_arn" {
+  description = "ARN of the created Waf ACL"
+  value       = module.waf_acl.arn
+}
+
+output "acl_id" {
+  description = "ID of the created Waf ACL"
+  value       = module.waf_acl.id
+}
+
+output "acl_capacity" {
+  description = "Web ACL capacity units currently used by this WebACL"
+  value       = module.waf_acl.capacity
+}

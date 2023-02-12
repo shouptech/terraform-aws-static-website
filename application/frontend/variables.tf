@@ -22,3 +22,8 @@ variable "environment" {
   description = "Value of Environment tag for resources."
   type        = string
 }
+
+variable "acl_name" {
+  description = "Name of WAF ACL to create"
+  type        = string
+}
