@@ -198,6 +198,7 @@ resource "aws_cloudwatch_metric_alarm" "error_rate_4xx" {
   alarm_name          = "${var.site_fqdn}-High-4xx-Error-Rate"
   namespace           = "AWS/CloudFront"
   comparison_operator = "GreaterThanThreshold"
+  datapoints_to_alarm = var.alarm_datapoints_to_alarm
   evaluation_periods  = var.alarm_4xx_evaluation_periods
   metric_name         = "4xxErrorRate"
   period              = var.alarm_4xx_period
@@ -206,12 +207,19 @@ resource "aws_cloudwatch_metric_alarm" "error_rate_4xx" {
   treat_missing_data  = "notBreaching"
   actions_enabled     = var.alarm_topic_name != null ? true : false
   alarm_actions       = var.alarm_topic_name != null ? [aws_sns_topic.alarms[0].arn] : []
+  ok_actions          = var.alarm_topic_name != null ? [aws_sns_topic.alarms[0].arn] : []
+
+  dimensions = {
+    DistributionId = aws_cloudfront_distribution.website.id
+    Region         = "Global"
+  }
 }
 
 resource "aws_cloudwatch_metric_alarm" "error_rate_5xx" {
   alarm_name          = "${var.site_fqdn}-High-5xx-Error-Rate"
   namespace           = "AWS/CloudFront"
   comparison_operator = "GreaterThanThreshold"
+  datapoints_to_alarm = var.alarm_datapoints_to_alarm
   evaluation_periods  = var.alarm_5xx_evaluation_periods
   metric_name         = "5xxErrorRate"
   period              = var.alarm_5xx_period
@@ -220,4 +228,10 @@ resource "aws_cloudwatch_metric_alarm" "error_rate_5xx" {
   treat_missing_data  = "notBreaching"
   actions_enabled     = var.alarm_topic_name != null ? true : false
   alarm_actions       = var.alarm_topic_name != null ? [aws_sns_topic.alarms[0].arn] : []
+  ok_actions          = var.alarm_topic_name != null ? [aws_sns_topic.alarms[0].arn] : []
+
+  dimensions = {
+    DistributionId = aws_cloudfront_distribution.website.id
+    Region         = "Global"
+  }
 }

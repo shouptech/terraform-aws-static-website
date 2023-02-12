@@ -5,6 +5,11 @@ output "site_address" {
 
 output "cloudfront_distribution_id" {
   description = "ID of the cloudfront distribution"
+  value       = module.website.cloudfront_distribution_id
+}
+
+output "cloudfront_distribution_arn" {
+  description = "ARN of the cloudfront distribution"
   value       = module.website.cloudfront_distribution_arn
 }
 

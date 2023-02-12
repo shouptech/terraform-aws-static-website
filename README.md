@@ -52,4 +52,5 @@ For more details about what each module implements, please see the `README.md` f
    for the zone. For example, if the domain is on Cloudflare, the Cloudflare provider could be used to create the
    appropriate NS records.
 * The WAF module could be updated to provide more configuration. Currently, it only implements a basic WAF ACL using the
-   AWSManagedRulesCommonRuleSet rule set, and is not configurable.
+   AWSManagedRulesCommonRuleSet rule set, and is not configurable. Also, add CloudWatch Logs, and any other visibility
+   items that aren't implemented.

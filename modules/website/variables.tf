@@ -125,6 +125,12 @@ variable "alarm_topic_name" {
   default     = null
 }
 
+variable "alarm_datapoints_to_alarm" {
+  description = "Number of data points to consider for an alarm"
+  type        = number
+  default     = 1
+}
+
 variable "alarm_4xx_evaluation_periods" {
   description = "High 4xx Error Rate - The number of periods over which data is compared to the specified threshold."
   type        = number
